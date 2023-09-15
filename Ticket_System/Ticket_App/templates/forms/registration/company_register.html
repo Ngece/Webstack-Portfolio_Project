@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block title%} Registration form {%endblock%}
+
+{% block content %}
+    <!-- Your page-specific content goes here -->
+    Register now your company !!!
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Register</button>
+    </form>
+    
+{% endblock %}
