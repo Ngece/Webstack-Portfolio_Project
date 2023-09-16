@@ -1,0 +1,15 @@
+Tickets
+
+<br/><br/>
+{% for t in tickets%}
+    <p>
+    {{t.title}}
+    {{t.description}}
+    {{t.time_created}}
+    {{t.time_updated}}
+    {{t.completed}}
+    {{t.company}}
+    </p>
+    <br/>
+<hr/>
+{% endfor %}

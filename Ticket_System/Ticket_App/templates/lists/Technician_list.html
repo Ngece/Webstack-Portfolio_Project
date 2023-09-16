@@ -1,0 +1,14 @@
+Technicians
+
+<br/><br/>
+{% for t in technicians%}
+    <p>
+    {{t.technician_name}}
+    {{t.technician_email}}
+    {{t.technician_phone}}
+    {{t.technician_address}}
+    {{t.company}}
+    </p>
+    <br/>
+<hr/>
+{% endfor %}
