@@ -1,0 +1,70 @@
+{%extends 'base.html'%}
+
+{%block content%}
+    <h1>Home Page</h1>
+
+    <p class="lead">Welcome to the home page!</p>
+
+    <hr/>
+    
+    <!-- Scrolling Image Section -->
+    <div class="scrolling-image">
+        <img src="your-image-url.jpg" alt="Scrolling Image">
+    </div>
+
+    <!-- User Comments Section -->
+    <div class="container mt-4">
+        <div class="row">
+            <!-- User Comment 1 -->
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">User 1</h5>
+                        <p class="card-text">Email: user1@example.com</p>
+                        <p class="card-text">Comment: This is a great website!</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- User Comment 2 -->
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">User 2</h5>
+                        <p class="card-text">Email: user2@example.com</p>
+                        <p class="card-text">Comment: Excellent work!</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- User Comment 3 -->
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">User 3</h5>
+                        <p class="card-text">Email: user3@example.com</p>
+                        <p class="card-text">Comment: Keep it up!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<hr/>
+    <!-- Feedback Form Section -->
+    <div class="container mt-4">
+        <h2>Provide Your Feedback</h2>
+        <form method="post">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label for="exampleFormControlInput1" class="form-label">Email address</label>
+                <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
+              </div>
+              <div class="mb-3">
+                <label for="exampleFormControlTextarea1" class="form-label">Example textarea</label>
+                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+              </div>
+            <button type="submit" class="btn btn-primary">Submit Feedback</button>
+        </form>
+    </div>
+    
+{%endblock%}

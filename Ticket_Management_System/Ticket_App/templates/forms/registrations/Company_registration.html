@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+    <h1>Register your business with us</h1>
+    <p> Welcome to the Company registration page!</p>
+
+    <form method="POST" action="{% url 'Technician_registration' %}" method="POST" autocomplete="off">
+        {% csrf_token %}
+        {{ form.as_p }}
+
+        <button type="submit" class="btn btn-success">Register</button>
+    </form>
+
+{% endblock %}
