@@ -38,5 +38,5 @@ class TicketUpdateForm(forms.ModelForm):
 class FeedbackForm(forms.ModelForm):
     class Meta:
         model = Feedback
-        fields = ['title', 'comment', 'rating']
+        fields = ['email', 'name', 'comment', 'rating']
 

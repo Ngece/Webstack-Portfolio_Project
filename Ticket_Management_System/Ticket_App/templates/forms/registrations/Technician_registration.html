@@ -5,11 +5,35 @@
     <h1>Register as a technician</h1>
     <p> Welcome to the Technician page!</p>
 
-    <form method="POST" action="{% url 'Technician_registration' %}" method="POST" autocomplete="off">
-        {% csrf_token %}
-        {{ form }}
-
-        <button type="submit" class="btn btn-success">Register</button>
-    </form>
-
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <h2 class="text-center mb-4">Register as a technician</h2>
+                <form action=" {% url 'Technician_registration' %}" method="POST">
+                    {% csrf_token %}
+                    <div class="row">
+                        <div class="col">
+                          <input type="text" class="form-control" placeholder="First name" aria-label="First name">
+                        </div>
+                        <div class="col">
+                          <input type="text" class="form-control" placeholder="Last name" aria-label="Last name">
+                        </div>
+                      </div><br/>
+                    <div class="form-group">
+                        <input type="text" class="form-control" name="username" placeholder="username" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" class="form-control" name="email" placeholder="email@example.com" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="password" class="form-control" name="password1" placeholder="password1" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="password" class="form-control" name="password2" placeholder="password2" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block">Login</button>
+                </form>
+            </div>
+        </div>
+    </div>
 {% endblock %}

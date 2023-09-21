@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from .models import Ticket, Company, SystemUser, Feedback
 from django.contrib import messages
 from .forms import TicketForm, CompanyForm, SystemUserForm, FeedbackForm, SystemUserUpdateForm, CompanyUpdateForm
 from django.contrib.auth import authenticate, login, logout
@@ -44,17 +45,18 @@ def logout_user(request):
 # Managing Tickets
 def Ticket_registration(request):
     if request.method == "POST":
-        form = TicketForm(request.POST)
-        if form.is_valid():
-            form = form.save(commit=False)
-            form.save()
-            messages.success(request, 'Your ticket has created and is pending approval, you will be notified when it is approved')
-            if request.user.is_company or request.user.is_technician:
+        if request.user.is_company:
+            form = TicketForm(request.POST)
+            if form.is_valid():
+                form = form.save(commit=False)
+                form.company = request.user
+                form.save()
+                messages.success(request, 'Your ticket has been created and is pending approval. You will be notified when it is approved.')
                 return redirect('My_ticket_list')
-            else:
-                return redirect('All_ticket_list')
-    else:
-        form = TicketForm()
+        else:
+            messages.warning(request, 'You have to be logged in as a company to create a ticket. If you are creating one on behalf of a company, please log in as a company.')
+            return redirect('login')
+    form = TicketForm()
     return render(request, 'forms/registrations/Ticket_registration.html', {'form': form})
 
 def All_ticket_list(request):
@@ -176,7 +178,7 @@ def Technician_registration(request):
     return render(request, 'forms/registrations/Technician_registration.html', {'form': form})
 
 def All_technician_list(request):
-    technicians = Technician.objects.all()
+    technicians = SystemUser.objects.filter(user_type='technician')
     return render(request, 'lists/All_technician_list.html', {'technicians': technicians})
 
 def Technician_detail(request, pk):
@@ -199,7 +201,7 @@ def Dispatcher_registration(request):
     return render(request, 'forms/registrations/Dispatcher_registration.html', {'form': form})
 
 def All_dispatcher_list(request):
-    dispatchers = Dispatcher.objects.all()
+    dispatchers = SystemUser.objects.filter(user_type='dispatcher')
     return render(request, 'lists/All_dispatcher_list.html', {'dispatchers': dispatchers})
 
 def Dispatcher_detail(request, pk):
@@ -236,7 +238,7 @@ def Feedback_registration(request):
 
 def Feedback_list(request):
     feedbacks = Feedback.objects.all()
-    return render(request, 'lists/feedback.html', {'feedbacks': feedbacks})
+    return render(request, 'lists/feedback.html')#, {'feedbacks': feedbacks})
 
 def Feedback_detail(request, pk):
     feedback = Feedback.objects.get(pk=pk)

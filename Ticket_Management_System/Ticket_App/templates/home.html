@@ -51,19 +51,41 @@
     </div>
 <hr/>
     <!-- Feedback Form Section -->
-    <div class="container mt-4">
+    <div class="container mt-4" style="background-color: #e6e6e6;" >
         <h2>Provide Your Feedback</h2>
-        <form method="post">
+        <br/>
+        <form method="post" action="{% url 'Feedback_registration'%}" >
             {% csrf_token %}
-            <div class="mb-3">
-                <label for="exampleFormControlInput1" class="form-label">Email address</label>
-                <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
-              </div>
-              <div class="mb-3">
-                <label for="exampleFormControlTextarea1" class="form-label">Example textarea</label>
-                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-              </div>
+            <div class="row">
+            <div class="col">
+            <div class="row">
+                <div class="col">
+                  <input type="text" class="form-control" placeholder="Your name" name="name">
+                </div>
+                <div class="col">
+                  <input type="email" class="form-control" placeholder="Your email" name="email">
+                </div>
+            </div><br/>
+            <div class="mb-2">
+                <label class="form-label"><strong>Comment on our services:</strong> </label>
+                <textarea class="form-control" rows="3" name="comment"></textarea>
+            </div>
+            </div>
+            <div class="col">
+            <br/>
             <button type="submit" class="btn btn-primary">Submit Feedback</button>
+            <br/><br/>
+            <label for="rating" class="form-label">Rate our service on a scale of 1 to 5</label>
+            <br/>
+            <select class="form-select" id="rating" name="rating">
+                <option value="1">1 Star</option>
+                <option value="2">2 Star</option>
+                <option value="3">3 Star</option>
+                <option value="4">4 Star</option>
+                <option value="5">5 Star</option>
+            </select>
+
+            </div>
         </form>
     </div>
     

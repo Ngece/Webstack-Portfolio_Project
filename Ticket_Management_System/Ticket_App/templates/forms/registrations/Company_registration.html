@@ -2,14 +2,52 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
-    <h1>Register your business with us</h1>
+    <div><br/>
+    <h1>Register as a Business</h1>
     <p> Welcome to the Company registration page!</p>
-
-    <form method="POST" action="{% url 'Technician_registration' %}" method="POST" autocomplete="off">
-        {% csrf_token %}
-        {{ form.as_p }}
-
-        <button type="submit" class="btn btn-success">Register</button>
-    </form>
+    </div>
+    <h2 class="text-center mb-4">Register your company for our services</h2>
+        <form action=" {% url 'Company_registration' %}" method="POST">
+            {% csrf_token %}
+            <form class="row g-3">
+                <center>
+                <div class="col-md-11">  
+                    <input type="text" class="form-control" placeholder="Company name" name"name">
+                </div><br/>
+                <div class="col-md-11">
+                    <input type="email" class="form-control" placeholder="Email address" name"email">
+                </div><br/>
+                <div class="col-md-11">  
+                    <input type="text" class="form-control" placeholder="Contact number" name"contact">
+                </div><br/>
+                <div class="col-md-11">
+                    <input type="password" class="form-control" placeholder="password1" name"password1">
+                </div><br/>
+                <div class="col-md-11">
+                    <input type="password" class="form-control" placeholder="password2" name"password2">
+                </div>
+                <br/>
+                <div class="col-md-11">  
+                    <input type="text" class="form-control" placeholder="Address line 1" name"address">
+                </div><br/>
+                <div class="container">   
+                <div class="row" mx-auto>
+                    <div class="col-sm-6">
+                      <input type="text" class="form-control" placeholder="City" name="city">
+                    </div>
+                    <div class="col-sm-3">
+                      <input type="text" class="form-control" placeholder="Surburb" name="surbub">
+                    </div>
+                    <div class="col-sm-3">
+                      <input type="text" class="form-control" placeholder="Zip" name="zip_code">
+                    </div>   
+                </div>
+                </div>
+                <br/>
+                <div class="col-sm-2">                 
+                <button type="submit" class="btn btn-primary btn-block">Register</button>
+                </div>
+            </center>
+        </form>
 
 {% endblock %}

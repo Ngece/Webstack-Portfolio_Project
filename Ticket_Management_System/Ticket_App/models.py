@@ -19,6 +19,7 @@ class SystemUser(AbstractUser):
 
 
 class Company(AbstractUser):
+    is_company = models.BooleanField(default=True)
     name = models.CharField(max_length=100)
     contact = models.CharField(max_length=13)
     address = models.CharField(max_length=100)
@@ -74,7 +75,8 @@ class Feedback(models.Model):
         ('not_posted', 'Not Posted'),
         ('posted', 'Posted'),
     )
-    title = models.CharField(max_length=100)
+    email = models.EmailField(null=True, blank=True)
+    name = models.CharField(max_length=100)
     comment = models.TextField(max_length=1000)
     rating = models.IntegerField(choices=feedback_rating, default=1)
     status = models.CharField(max_length=100, choices=feedback_status, default='pending')
