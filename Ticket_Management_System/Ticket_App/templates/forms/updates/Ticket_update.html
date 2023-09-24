@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+    <h1>Update ticket information</h1>
+    <p> Welcome to the Ticket update page!</p>
+
+    <form method="POST" action="{% url 'Update_ticket/<int:pk>/' %}" method="POST" autocomplete="off">
+        {% csrf_token %}
+        <div class="row justify-content-center">
+        <div class="col-md-6">
+        <div class="mb-3">
+            <label class="form-label"><strong>Enter your ticket title:</strong></label>
+            <input type="text" class="form-control"  placeholder="title" name="title">
+          </div>
+          <div class="mb-3">
+            <label class="form-label"><strong>Discription:</strong></label>
+            <textarea class="form-control" rows="3" name="description"></textarea>
+          </div><br/>
+        <button type="submit" class="btn btn-success">Create Ticket</button>
+        </div>
+        </div>
+    </form>
+
+{% endblock %}

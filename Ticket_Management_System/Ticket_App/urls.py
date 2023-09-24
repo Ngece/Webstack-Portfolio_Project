@@ -21,7 +21,6 @@ urlpatterns = [
 
     path('Company_registration/', views.Company_registration, name='Company_registration'),
     path('Company_detail/<int:pk>/', views.Company_detail, name='Company_detail'),
-    path('Update_company/<int:pk>/', views.Update_company_profile, name='Update_company'),
     path('All_company_list/', views.All_company_list, name='All_company_list'),
 
     path('Technician_registration/', views.Technician_registration, name='Technician_registration'),

@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
-from .models import Ticket, Company, SystemUser, Feedback
+from .models import Ticket, SystemUser, Feedback
 from django.contrib import messages
-from .forms import TicketForm, CompanyForm, SystemUserForm, FeedbackForm, SystemUserUpdateForm, CompanyUpdateForm
+from .forms import TicketForm, SystemUserForm, FeedbackForm, SystemUserUpdateForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import user_passes_test, login_required
 
@@ -31,9 +31,10 @@ def login_user(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
-            messages.success(request, 'you are now logged in')
+            messages.success(request, 'Login successful')
+            return redirect('My_ticket_list')
         else:
-            messages.info(request, 'Username or password is incorrect')
+            messages.error(request, 'Username or password is incorrect')
     return render(request, 'forms/login/login.html')
 
 def logout_user(request):
@@ -133,9 +134,11 @@ def My_ticket_list(request):
 # Managing Companies
 def Company_registration(request):
     if request.method == "POST":
-        form = CompanyForm(request.POST)
+        form = SystemUserForm(request.POST)
         if form.is_valid():
-            form.save()
+            company = form.save(commit=False)
+            company.is_company = True
+            company.save()
             messages.success(request, 'Your company profile has been created, you can now login')
             return redirect('login') 
     else:
@@ -150,18 +153,6 @@ def Company_detail(request, pk):
     company = Company.objects.get(pk=pk)
     return render(request, 'details/Company_detail.html', {'company': company})
 
-def Update_company_profile(request):
-    if request.method == "POST":
-        form = CompanyUpdateForm(request.POST, instance=request.user)
-        if form.is_valid():
-            form.save()
-            messages.success(request, 'Your company profile has been updated')
-            return redirect('home')
-    else:
-        form = CompanyUpdateForm(instance=request.user)
-    return render(request, 'forms/updates/Company_update.html', {'form': form})
-
-
 
 # Managing Technicians
 def Technician_registration(request):
@@ -169,7 +160,7 @@ def Technician_registration(request):
         form = SystemUserForm(request.POST)
         if form.is_valid():
             technician = form.save(commit=False)
-            technician.user_type = 'technician'
+            technician.is_technician = True
             technician.save()
             messages.success(request, 'Your technician profile has been created, you can now login')
             return redirect('login')
@@ -193,7 +184,7 @@ def Dispatcher_registration(request):
         form = SystemUserForm(request.POST)
         if form.is_valid():
             dispatcher = form.save(commit=False)
-            dispatcher.user_type = 'dispatcher'
+            dispatcher.is_dispatcher = True
             dispatcher.save()
             return redirect('forms/login/login.html')
     else:
@@ -211,6 +202,7 @@ def Dispatcher_detail(request, pk):
 
 
 # Managing user profile
+@login_required(login_url='login')
 def Update_user_profile(request):
     if request.method == "POST":
         form = SystemUserUpdateForm(request.POST, instance=request.user)

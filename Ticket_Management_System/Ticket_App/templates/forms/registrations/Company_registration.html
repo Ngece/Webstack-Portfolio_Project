@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load crispy_forms_tags %}
+
 
 {% block content %}
     <div><br/>
@@ -9,44 +9,31 @@
     <h2 class="text-center mb-4">Register your company for our services</h2>
         <form action=" {% url 'Company_registration' %}" method="POST">
             {% csrf_token %}
-            <form class="row g-3">
+            <div class="container">
                 <center>
                 <div class="col-md-11">  
-                    <input type="text" class="form-control" placeholder="Company name" name"name">
+                    <input type="text" class="form-control" placeholder="Company name" name="name">
                 </div><br/>
                 <div class="col-md-11">
-                    <input type="email" class="form-control" placeholder="Email address" name"email">
+                    <input type="email" class="form-control" placeholder="Email address" name="email">
                 </div><br/>
                 <div class="col-md-11">  
-                    <input type="text" class="form-control" placeholder="Contact number" name"contact">
+                    <input type="text" class="form-control" placeholder="Contact number" name="phone">
                 </div><br/>
-                <div class="col-md-11">
-                    <input type="password" class="form-control" placeholder="password1" name"password1">
-                </div><br/>
-                <div class="col-md-11">
-                    <input type="password" class="form-control" placeholder="password2" name"password2">
-                </div>
-                <br/>
                 <div class="col-md-11">  
-                    <input type="text" class="form-control" placeholder="Address line 1" name"address">
+                    <input type="text" class="form-control" placeholder="Username" name="username">
                 </div><br/>
-                <div class="container">   
-                <div class="row" mx-auto>
-                    <div class="col-sm-6">
-                      <input type="text" class="form-control" placeholder="City" name="city">
-                    </div>
-                    <div class="col-sm-3">
-                      <input type="text" class="form-control" placeholder="Surburb" name="surbub">
-                    </div>
-                    <div class="col-sm-3">
-                      <input type="text" class="form-control" placeholder="Zip" name="zip_code">
-                    </div>   
-                </div>
+                <div class="col-md-11">
+                    <input type="password" class="form-control" placeholder="password" name="password1">
+                </div><br/>
+                <div class="col-md-11">
+                    <input type="password" class="form-control" placeholder="confirm password" name="password2">
                 </div>
                 <br/>
                 <div class="col-sm-2">                 
                 <button type="submit" class="btn btn-primary btn-block">Register</button>
                 </div>
+            </div>
             </center>
         </form>
 

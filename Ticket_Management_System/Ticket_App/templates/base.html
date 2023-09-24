@@ -57,34 +57,65 @@
                     <a class="nav-link" href="{% url 'logout'%}">| Logout |</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'Ticket_registration'%}">| CreateTicket |</a>
+                    <a class="nav-link" href="{% url 'My_ticket_list'%}">| My Tickets |</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'Ticket_registration'%}">| CreateTicket |</a>
+                    <a class="nav-link" href="{% url 'Update_profile'%}">| Update Profile|</a>
                 </li>
+                {% if user.is_company %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'Ticket_registration'%}">| Create Ticket |</a>
+                </li>
+                {% endif %}
+                {% if user.is_technician %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'Approved_ticket_list'%}">| Approved tickets |</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'All_technician_list'%}">| Technicians and Engineers |</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'All_company_list'%}">| Companies |</a>
+                </li>
+                {% endif %}
+                {% if user.is_dispatcher %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'All_technician_list'%}">| Technicians and Engineers |</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'All_company_list'%}">| Companies |</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'Approved_ticket_list'%}">| Approved tickets |</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'All_dispatcher_list'%}">| Dispatchers |</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'Feedback_list'%}">| Feedback |</a>
+                </li>
+                {% endif %}
                 {% else %}
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'login'%}">| Login |</a>
                 </li>
-                {% endif %}
-
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'about'%}">| About |</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'Company_registration'%}">| Register with us |</a>
                 </li>
+                {% endif %}
             </ul>
         </div>
     </div>
 </nav>
 
 {% for message in messages %}
-
-<div class="alert alert-{{message.tags}}">
-    {{message}}
-</div>
-    
+<div class="alert alert-warning alert-dismissible fade show" role="alert">
+    <strong>{{message}}</strong> 
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
 {% endfor %}
 
 
