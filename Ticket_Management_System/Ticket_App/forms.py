@@ -1,20 +1,16 @@
-from .models import Ticket, Feedback
+from .models import Ticket, Feedback, SystemUser
 from django import forms
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 
-class SignUpForm(UserCreationForm):
-    name = forms.CharField(max_length=100)
-    phone = forms.CharField(max_length=100)
-
+class UserSignUpForm(UserCreationForm):
     class Meta:
-        model = User
-        fields = ['name', 'phone']
-
+        model = SystemUser
+        fields = ['role', 'name', 'phone', 'email', 'username']
 
 class SystemUserUpdateForm(UserChangeForm):
     class Meta:
         model = SystemUser
-        fields = ['name', 'phone']
+        fields = ['role', 'name', 'phone', 'email', 'username']
 
 
 class TicketForm(forms.ModelForm):

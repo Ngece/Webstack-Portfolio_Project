@@ -7,7 +7,7 @@
     <p> Welcome to the Company registration page!</p>
     </div>
     <h2 class="text-center mb-4">Register your company for our services</h2>
-        <form action=" {% url 'Company_registration' %}" method="POST">
+        <form method="post" action="{% url 'Company_registration' %}">
             {% csrf_token %}
             <div class="container">
                 <center>

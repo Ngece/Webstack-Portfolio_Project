@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from .models import Ticket, SystemUser, Feedback
 from django.contrib import messages
-from .forms import TicketForm, SystemUserForm, FeedbackForm, SystemUserUpdateForm
+from .forms import TicketForm, UserSignUpForm, FeedbackForm, SystemUserUpdateForm, TicketUpdateForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import user_passes_test, login_required
 
@@ -134,46 +134,48 @@ def My_ticket_list(request):
 # Managing Companies
 def Company_registration(request):
     if request.method == "POST":
-        form = SystemUserForm(request.POST)
+        form = UserSignUpForm(request.POST)
         if form.is_valid():
-            company = form.save(commit=False)
-            company.is_company = True
-            company.save()
+            form = form.save(commit=False)
+            form.role = 'company'
+            form.save()
             messages.success(request, 'Your company profile has been created, you can now login')
-            return redirect('login') 
+            return redirect('login')
+        else:
+            messages.error(request, 'Please correct the error below')
     else:
-        form = CompanyForm()
+        form = UserSignUpForm()
     return render(request, 'forms/registrations/Company_registration.html', {'form': form})
 
 def All_company_list(request):
-    companies = Company.objects.all()
+    companies = SystemUser.objects.filter(role='company')
     return render(request, 'lists/All_company_list.html', {'companies': companies})
 
 def Company_detail(request, pk):
-    company = Company.objects.get(pk=pk)
+    company = SystemUser.objects.get(pk=pk)
     return render(request, 'details/Company_detail.html', {'company': company})
 
 
 # Managing Technicians
 def Technician_registration(request):
     if request.method == "POST":
-        form = SystemUserForm(request.POST)
+        form = UserSignUpForm(request.POST)
         if form.is_valid():
-            technician = form.save(commit=False)
-            technician.is_technician = True
-            technician.save()
+            form = form.save(commit=False)
+            form.role = 'technician'
+            form.save()
             messages.success(request, 'Your technician profile has been created, you can now login')
             return redirect('login')
     else:
-        form = SystemUserForm()
+        form = UserSignUpForm()
     return render(request, 'forms/registrations/Technician_registration.html', {'form': form})
 
 def All_technician_list(request):
-    technicians = SystemUser.objects.filter(user_type='technician')
+    technicians = SystemUser.objects.filter(role='technician')
     return render(request, 'lists/All_technician_list.html', {'technicians': technicians})
 
 def Technician_detail(request, pk):
-    technician = Technician.objects.get(pk=pk)
+    technician = SystemUser.objects.get(pk=pk)
     return render(request, 'details/Technician_detail.html', {'technician': technician})
 
 
@@ -181,22 +183,22 @@ def Technician_detail(request, pk):
 # Managing Dispatchers
 def Dispatcher_registration(request):
     if request.method == "POST":
-        form = SystemUserForm(request.POST)
+        form = UserSignUpForm(request.POST)
         if form.is_valid():
-            dispatcher = form.save(commit=False)
-            dispatcher.is_dispatcher = True
-            dispatcher.save()
+            form = form.save(commit=False)
+            form.role = 'dispatcher'
+            form.save()
             return redirect('forms/login/login.html')
     else:
-        form = SystemUserForm()
+        form = UserSignUpForm()
     return render(request, 'forms/registrations/Dispatcher_registration.html', {'form': form})
 
 def All_dispatcher_list(request):
-    dispatchers = SystemUser.objects.filter(user_type='dispatcher')
+    dispatchers = SystemUser.objects.filter(role='dispatcher')
     return render(request, 'lists/All_dispatcher_list.html', {'dispatchers': dispatchers})
 
 def Dispatcher_detail(request, pk):
-    dispatcher = Dispatcher.objects.get(pk=pk)
+    dispatcher = SystemUser.objects.get(pk=pk)
     return render(request, 'details/Dispatcher_detail.html', {'dispatcher': dispatcher})
 
 

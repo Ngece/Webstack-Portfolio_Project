@@ -3,22 +3,25 @@ from django.contrib.auth.models import AbstractUser
 
 # Create your models here.
 class SystemUser(AbstractUser):
-    is_company = models.BooleanField(default=False)
-    is_technician = models.BooleanField(default=False)
-    is_dispatcher = models.BooleanField(default=False)
+    ROLE_CHOICES = (
+        ('technician', 'Technician'),
+        ('dispatcher', 'Dispatcher'),
+        ('company', 'Company'),
+    )
+    role = models.CharField(max_length=100, choices=ROLE_CHOICES, default='company')
     name = models.CharField(max_length=100)
     phone = models.CharField(max_length=100, null=True, blank=True)
     ticket = models.ForeignKey('Ticket', on_delete=models.CASCADE, null=True, blank=True, related_name='system_users')
 
     def __str__(self):
-        return self.name + ' ' + self.user_type + ' ' + self.user_type
+        return self.name + ' ' + self.role 
 
 
 class Ticket(models.Model):
     ticket_choices = (
         ('pending', 'Pending'),
-        ('approved', 'Approved'),
         ('accepted', 'Accepted'),
+        ('monitored', 'Monitored'),
         ('rejected', 'Rejected'),
         ('closed', 'Closed')
     )
