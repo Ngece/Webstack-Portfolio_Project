@@ -45,8 +45,8 @@
 <!-- Navbar -->
 <nav class="navbar navbar-expand-lg navbar-light bg-custom">
     <div class="container">
-        <a class="navbar-brand" ></a>
-        <img src="static/images/logo.png"/>
+        <a class="navbar-brand" ><img src="static/images/logo.png"/></a>
+        
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -111,13 +111,12 @@
     </div>
 </nav>
 
-{% if messages %}
-<ul class="messages">
-    {% for message in messages %}
-    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-    {% endfor %}
-</ul>
-{% endif %}
+{% for message in messages %}
+<div class="alert alert-warning alert-dismissible fade show" role="alert">
+    <strong>{{message}}</strong> 
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+{% endfor %}
 
 
 <!-- Content Container -->

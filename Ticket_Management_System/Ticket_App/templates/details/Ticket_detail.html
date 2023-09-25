@@ -4,15 +4,28 @@
     <h1>Ticket</h1>
     <p> Ticket information!</p>
     <center>
+      {% for ticket in tickets %}
     <div class="card" style="width: 18rem;">
         <div class="card-body">
-          <h5 class="card-title">Card title</h5>
-          <h6 class="card-subtitle mb-2 text-body-secondary">Card subtitle</h6>
-          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+          <h5 class="card-title"> {{ticket.title}} </h5>
+          <h6 class="card-subtitle mb-2 text-body-secondary">{{ticket.status}}</h6>
+          <strong><p>DISCRIPTION:</p></strong>
+          <p class="card-text">{{ticket.description}}</p>
+          <strong><p>cREATED ON:</p></strong>
+          <p class="card-text">{{ticket.created_date}}</p>
+          <strong><p>lAST UPDATED:</p></strong>
+          <p class="card-text">{{ticket.updated_date}}</p>
+          <strong><p>COMPANY:</p></strong>
+          <p class="card-text">{{ticket.company}}</p>
+          <strong><p>ASSIGNED TECHNICIAN:</p></strong>
+          <p class="card-text">{{ticket.technician}}</p>
+          <strong><p>DISPATCHER:</p></strong>
+          <p class="card-text">{{ticket.dispatcher}}</p>
           <a href="#" class="card-link">Card link</a>
           <a href="#" class="card-link">Another link</a>
         </div>
       </div>
+      {% endfor %}
     </center>
       <br/><hr/><br/>
 

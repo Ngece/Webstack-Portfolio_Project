@@ -136,13 +136,14 @@ def Company_registration(request):
     if request.method == "POST":
         form = UserSignUpForm(request.POST)
         if form.is_valid():
-            form = form.save(commit=False)
-            form.role = 'company'
-            form.save()
+            company = form.save(commit=False)
+            company.role = 'company'
+            company.save()
             messages.success(request, 'Your company profile has been created, you can now login')
             return redirect('login')
         else:
-            messages.error(request, 'Please correct the error below')
+            print(form.errors)
+            messages.error(request, 'There was an error submitting your form. Please try again')
     else:
         form = UserSignUpForm()
     return render(request, 'forms/registrations/Company_registration.html', {'form': form})
