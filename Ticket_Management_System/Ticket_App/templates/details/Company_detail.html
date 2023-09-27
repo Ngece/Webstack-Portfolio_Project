@@ -6,11 +6,20 @@
     <center>
     <div class="card" style="width: 18rem;">
         <div class="card-body">
-          <h5 class="card-title">Card title</h5>
-          <h6 class="card-subtitle mb-2 text-body-secondary">Card subtitle</h6>
-          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-          <a href="#" class="card-link">Card link</a>
-          <a href="#" class="card-link">Another link</a>
+          <h5 class="card-title">
+            <strong>Name: </strong>{{company.name}}
+          </h5><hr/>
+          <h6 class="card-subtitle mb-2 text-body-secondary">
+            <strong>Phone: </strong>{{company.phone}}
+          </h6><hr/>
+          <h6 class="card-subtitle mb-2 text-body-secondary">
+            <strong>Email: </strong>{{company.email}}
+          </h6>
+          
+          <a href="{% url 'Update_profile' %}" class="card-link">
+            <img src="/static/icons/edit.svg" alt="Logo">
+          </a>
+          <a href="{% url 'My_ticket_list'%}" class="card-link">Tickets</a>
         </div>
       </div>
     </center>

@@ -4,23 +4,27 @@
     <h1>Technicians</h1>
     <p> All our technicians  !!!</p>
     <center>
-    <table class="table table-hover">
+      <table class="table table-hover" >
         <thead>
             <tr>
-              <th scope="col">#</th>
-              <th scope="col">First</th>
-              <th scope="col">Last</th>
-              <th scope="col">Handle</th>
+              <th scope="col">Full name</th>
+              <th scope="col">Email</th>
+              <th scope="col">Contact</th>
             </tr>
         </thead>
         <tbody>
+          {% for technician in technicians %}
             <tr>
-              <th scope="row">1</th>
-              <td>Mark</td>
-              <td>Otto</td>
-              <td>@mdo</td>
+              <td>{{technician.name}}</th>
+              <td>{{technician.email}}</td>
+              <td>{{technician.phone}}</td>
+              <td>
+              <a href="{% url 'Technician_detail' pk=technician.pk %}">
+                <img src="/static/icons/info-square.svg" alt="Logo">
+              </a>
+              </td>
             </tr>
-            <tr>
+        {% endfor %}    
         </tbody>
     </table>
     </center>

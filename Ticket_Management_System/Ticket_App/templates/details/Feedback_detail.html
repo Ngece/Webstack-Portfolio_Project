@@ -4,13 +4,33 @@
     <h1>Feeback</h1>
     <p> Feedback information!</p>
     <center>
-    <div class="card" style="width: 18rem;">
+      <div class="card" style="width: 18rem;">
         <div class="card-body">
-          <h5 class="card-title">Card title</h5>
-          <h6 class="card-subtitle mb-2 text-body-secondary">Card subtitle</h6>
-          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-          <a href="#" class="card-link">Card link</a>
-          <a href="#" class="card-link">Another link</a>
+          <h5 class="card-title">
+            <strong>Name: </strong>{{feedback.name}}
+          </h5><hr/>
+          <h6 class="card-subtitle mb-2 text-body-secondary">
+            <strong>Email: </strong>{{feedback.email}}
+          </h6><hr/>
+          <h6 class="card-subtitle mb-2 text-body-secondary">
+            <strong>Comment: </strong>{{feedback.comment}}
+          </h6><hr/>
+          <h6 class="card-subtitle mb-2 text-body-secondary">
+            <strong>Rating: </strong>{{feedback.rating}}
+          </h6><hr/>
+          <h6 class="card-subtitle mb-2 text-body-secondary">
+            <strong>Status: </strong>{{feedback.status}}
+          </h6><hr/>
+          
+          <a href="{% url 'Delete_feedback' pk=feedback.pk %}" class="card-link">
+            <img src="/static/icons/trash3.svg" alt="Logo">
+          </a>
+          <a href="{% url 'Post_feedback' pk=feedback.pk %}" class="card-link">
+            <img src="/static/icons/upload.svg" alt="Logo">
+          </a>
+          <a href="{% url 'Remove_feedback' pk=feedback.pk %}" class="card-link">
+            <img src="/static/icons/file-earmark-x.svg" alt="Logo">
+          </a>
         </div>
       </div>
     </center>

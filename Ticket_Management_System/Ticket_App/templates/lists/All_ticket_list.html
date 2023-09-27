@@ -4,23 +4,37 @@
     <h1>Tickets</h1>
     <p> All tickets filed, please note some are waiting for approval !!!</p>
     <center>
-    <table class="table table-hover">
+      <table class="table table-hover" >
         <thead>
             <tr>
-              <th scope="col">#</th>
-              <th scope="col">First</th>
-              <th scope="col">Last</th>
-              <th scope="col">Handle</th>
+              <th scope="col">ID</th>
+              <th scope="col">Title</th>
+              <th scope="col">Description</th>
+              <th scope="col">Date created</th>
+              <th scope="col">Date updated</th>
+              <th scope="col">Status</th>
+              <th scope="col">Company</th>
+              <th scope="col">Assigned Technician</th>
+              <th scope="col">Dispatcher</th>
             </tr>
         </thead>
         <tbody>
+          {% for ticket in tickets %}
             <tr>
-              <th scope="row">1</th>
-              <td>Mark</td>
-              <td>Otto</td>
-              <td>@mdo</td>
+              <td>{{ticket.id}}</th>
+              <td>{{ticket.title}}</th>
+              <td>{{ticket.description}}</td>
+              <td>{{ticket.created_date}}</td>
+              <td>{{ticket.updated_date}}</th>
+              <td>{{ticket.status}}</td>
+              <td>{{ticket.company}}</td>
+              <td>{{ticket.technician}}</td>
+              <td>{{ticket.dispatcher}}</td>
+              <td><i class="bi bi-trash"></i>
+              </td>
+
             </tr>
-            <tr>
+        {% endfor %}    
         </tbody>
     </table>
     </center>

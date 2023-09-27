@@ -11,19 +11,17 @@
                 <h2 class="text-center mb-4">Register as a technician</h2>
                 <form action=" {% url 'Technician_registration' %}" method="POST">
                     {% csrf_token %}
-                    <div class="row">
-                        <div class="col">
-                          <input type="text" class="form-control" placeholder="First name" aria-label="First name">
-                        </div>
-                        <div class="col">
-                          <input type="text" class="form-control" placeholder="Last name" aria-label="Last name">
-                        </div>
-                      </div><br/>
+                    <div class="form-group">
+                        <input type="text" class="form-control" name="name" placeholder="Full name" required>
+                    </div>
                     <div class="form-group">
                         <input type="text" class="form-control" name="username" placeholder="username" required>
                     </div>
                     <div class="form-group">
                         <input type="email" class="form-control" name="email" placeholder="email@example.com" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control" name="phone" placeholder="contact" required>
                     </div>
                     <div class="form-group">
                         <input type="password" class="form-control" name="password1" placeholder="password1" required>

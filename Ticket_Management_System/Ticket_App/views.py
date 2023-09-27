@@ -8,10 +8,13 @@ from django.contrib.auth.decorators import user_passes_test, login_required
 
 # Verify user types to restrict access to certain pages for different users
 def is_dispatcher(user):
-    return user.is_authenticated and user.is_dispatcher
+    return user.is_authenticated and user.role.dispatcher
 
 def is_technician(user):
-    return user.is_authenticated and user.is_technician
+    return user.is_authenticated and user.role.technician
+
+def is_company(user):
+    return user.is_authenticated and user.role.company
 
 def is_allowed(user):
     return user.is_authenticated
@@ -19,7 +22,9 @@ def is_allowed(user):
 
 # Create your views here.
 def home(request):
-    return render(request, 'home.html')
+    feedbacks = Feedback.objects.all()
+    return render(request, 'home.html', {'feedbacks': feedbacks})
+    
 
 def about(request):
     return render(request, 'about.html')
@@ -32,7 +37,7 @@ def login_user(request):
         if user is not None:
             login(request, user)
             messages.success(request, 'Login successful')
-            return redirect('My_ticket_list')
+            return render(request, 'home.html')
         else:
             messages.error(request, 'Username or password is incorrect')
     return render(request, 'forms/login/login.html')
@@ -40,20 +45,20 @@ def login_user(request):
 def logout_user(request):
     logout(request)
     messages.info(request, 'You have been logged out')
-    return render(request, 'home.html')
+    return redirect( 'home')
 
 
 # Managing Tickets
+@login_required
 def Ticket_registration(request):
     if request.method == "POST":
-        if request.user.is_company:
-            form = TicketForm(request.POST)
-            if form.is_valid():
-                form = form.save(commit=False)
-                form.company = request.user
-                form.save()
-                messages.success(request, 'Your ticket has been created and is pending approval. You will be notified when it is approved.')
-                return redirect('My_ticket_list')
+        form = TicketForm(request.POST)
+        if form.is_valid():
+            ticket = form.save(commit=False)
+            ticket.company = request.user
+            ticket.save()
+            messages.success(request, 'Your ticket has been created and is pending approval. You will be notified when it is approved.')
+            return redirect('My_ticket_list')
         else:
             messages.warning(request, 'You have to be logged in as a company to create a ticket. If you are creating one on behalf of a company, please log in as a company.')
             return redirect('login')
@@ -119,11 +124,11 @@ def Approved_ticket_list(request):
 
 def My_ticket_list(request):
     user = request.user
-    if user.is_technician:
+    if user.role == 'technician':
         tickets = Ticket.objects.filter(technician=user)
-    elif user.is_dispatcher:
+    elif user.role == 'dispatcher':
         tickets = Ticket.objects.filter(dispatcher=user)
-    elif user.is_company:
+    elif user.role == 'company':
         tickets = Ticket.objects.filter(company=user)
     else:
         return redirect('home')
@@ -162,9 +167,9 @@ def Technician_registration(request):
     if request.method == "POST":
         form = UserSignUpForm(request.POST)
         if form.is_valid():
-            form = form.save(commit=False)
-            form.role = 'technician'
-            form.save()
+            technician = form.save(commit=False)
+            technician.role = 'technician'
+            technician.save()
             messages.success(request, 'Your technician profile has been created, you can now login')
             return redirect('login')
     else:
@@ -205,7 +210,6 @@ def Dispatcher_detail(request, pk):
 
 
 # Managing user profile
-@login_required(login_url='login')
 def Update_user_profile(request):
     if request.method == "POST":
         form = SystemUserUpdateForm(request.POST, instance=request.user)
@@ -213,6 +217,9 @@ def Update_user_profile(request):
             form.save()
             messages.success(request, 'Your profile has been updated')
             return redirect('home')
+        else:
+            messages.error(request, 'You are not authorized to update this profile')
+            return redirect('login')
     else:
         messages.warning(request, 'You have to be logged in to update your profile')
         form = SystemUserUpdateForm(instance=request.user)
@@ -233,7 +240,7 @@ def Feedback_registration(request):
 
 def Feedback_list(request):
     feedbacks = Feedback.objects.all()
-    return render(request, 'lists/feedback.html')#, {'feedbacks': feedbacks})
+    return render(request, 'lists/feedback.html', {'feedbacks': feedbacks})
 
 def Feedback_detail(request, pk):
     feedback = Feedback.objects.get(pk=pk)
@@ -244,7 +251,8 @@ def Post_feedback(request, pk):
     feedback.status = 'Posted'
     feedback.save()
     messages.success(request, 'Feedback posted on home page')
-    return redirect('')
+    return redirect('home')
+
 
 def Delete_feedback(request, pk):
     feedback = Feedback.objects.get(pk=pk)
