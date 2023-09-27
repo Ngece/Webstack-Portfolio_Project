@@ -1,3 +1,4 @@
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.urls import path
 from . import views
 
@@ -41,3 +42,4 @@ urlpatterns = [
     path('Remove_feedback/<int:pk>/', views.Remove_feedback, name='Remove_feedback'),
     path('Delete_feedback/<int:pk>/', views.Delete_feedback, name='Delete_feedback')
 ]
+urlpatterns += staticfiles_urlpatterns()

@@ -38,7 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'Ticket_App',
-    'crispy_forms',
+    
 ]
 
 MIDDLEWARE = [
@@ -119,6 +119,14 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = 'static/'
+
+# Define the directories where static files are located.
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+
+# Use the default static files storage in development.
+STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
+
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field

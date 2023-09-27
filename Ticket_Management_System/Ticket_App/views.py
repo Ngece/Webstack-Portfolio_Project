@@ -16,8 +16,7 @@ def is_technician(user):
 def is_company(user):
     return user.is_authenticated and user.role.company
 
-def is_allowed(user):
-    return user.is_authenticated
+
 
 
 # Create your views here.
@@ -49,7 +48,7 @@ def logout_user(request):
 
 
 # Managing Tickets
-@login_required
+@user_passes_test(is_company)
 def Ticket_registration(request):
     if request.method == "POST":
         form = TicketForm(request.POST)
@@ -65,10 +64,12 @@ def Ticket_registration(request):
     form = TicketForm()
     return render(request, 'forms/registrations/Ticket_registration.html', {'form': form})
 
+
 def All_ticket_list(request):
     tickets = Ticket.objects.all()
     return render(request, 'lists/All_ticket_list.html', {'tickets': tickets})
 
+@
 def Ticket_detail(request, pk):
     ticket = Ticket.objects.get(pk=pk)
     return render(request, 'details/Ticket_detail.html', {'ticket': ticket})
