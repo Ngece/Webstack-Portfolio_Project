@@ -3,31 +3,19 @@ from .models import Ticket, SystemUser, Feedback
 from django.contrib import messages
 from .forms import TicketForm, UserSignUpForm, FeedbackForm, SystemUserUpdateForm, TicketUpdateForm
 from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.decorators import user_passes_test, login_required
+from .decorators import dispatcher_required, technician_required, company_required, technician_or_dispatcher_required, login_required
 
 
-# Verify user types to restrict access to certain pages for different users
-def is_dispatcher(user):
-    return user.is_authenticated and user.role.dispatcher
-
-def is_technician(user):
-    return user.is_authenticated and user.role.technician
-
-def is_company(user):
-    return user.is_authenticated and user.role.company
-
-
-
-
-# Create your views here.
+# home view renders the home page as well as the feedback form
 def home(request):
     feedbacks = Feedback.objects.all()
     return render(request, 'home.html', {'feedbacks': feedbacks})
-    
 
+# about view renders the about page
 def about(request):
     return render(request, 'about.html')
 
+# login and logout views manage user authentication
 def login_user(request):
     if request.method == "POST":
         username = request.POST['username']
@@ -41,14 +29,16 @@ def login_user(request):
             messages.error(request, 'Username or password is incorrect')
     return render(request, 'forms/login/login.html')
 
+@login_required(login_url='login')
 def logout_user(request):
     logout(request)
     messages.info(request, 'You have been logged out')
     return redirect( 'home')
 
 
-# Managing Tickets
-#@user_passes_test(is_company)
+# managing Ticket registration
+@login_required(login_url='login')
+@company_required
 def Ticket_registration(request):
     if request.method == "POST":
         form = TicketForm(request.POST)
@@ -64,16 +54,22 @@ def Ticket_registration(request):
     form = TicketForm()
     return render(request, 'forms/registrations/Ticket_registration.html', {'form': form})
 
-
+# lists all registered tickets 
+@login_required(login_url='login')
+@technician_or_dispatcher_required
 def All_ticket_list(request):
     tickets = Ticket.objects.all()
     return render(request, 'lists/All_ticket_list.html', {'tickets': tickets})
 
-
+# shows details of a particular ticket
+@login_required(login_url='login')
 def Ticket_detail(request, pk):
     ticket = Ticket.objects.get(pk=pk)
     return render(request, 'details/Ticket_detail.html', {'ticket': ticket})
 
+# updates a particular ticket by a company
+@login_required(login_url='login')
+@company_required
 def Update_ticket(request, pk):
     ticket = Ticket.objects.get(pk=pk)
     if request.method == "POST":
@@ -87,42 +83,70 @@ def Update_ticket(request, pk):
         form = TicketForm(instance=ticket)
     return render(request, 'forms/updates/Ticket_update.html', {'form': form})
 
+# approves a particular ticket by a dispatcher
+@login_required(login_url='login')
+@dispatcher_required
 def Approve_ticket(request, pk):
     ticket = Ticket.objects.get(pk=pk)
     ticket.status = 'Approved'
     ticket.dispatcher = request.user
     ticket.save()
     messages.success(request, 'Ticket has been approved')
-    return redirect('approved_ticket_list')
+    return redirect('Approved_ticket_list')
 
+# accepts a particular ticket by a technician
+@login_required(login_url='login')
+@technician_required
 def Accept_ticket(request, pk):
     ticket = Ticket.objects.get(pk=pk)
     ticket.status = 'Accepted'
     ticket.technician = request.user
     ticket.save()
 
+# monitors a particular ticket by a technician
+@login_required(login_url='login')
+@technician_required
+def Monitor_ticket(request, pk):
+    ticket = Ticket.objects.get(pk=pk)
+    ticket.status = 'Monitored'
+    ticket.save()   
+
+# rejects a particular ticket by a dispatcher
+@login_required(login_url='login')
+@dispatcher_required
 def Reject_ticket(request, pk):
     ticket = Ticket.objects.get(pk=pk)
     ticket.status = 'Rejected'
     ticket.dispatcher = request.user
     ticket.save()
 
+# closes a particular ticket by a technician
+@login_required(login_url='login')
+@technician_or_dispatcher_required
 def Close_ticket(request, pk):
     ticket = Ticket.objects.get(pk=pk)
     ticket.status = 'Closed'
     ticket.technician = request.user
     ticket.save()
 
+# deletes a particular ticket by a dispatcher
+@login_required(login_url='login')
+@dispatcher_required
 def Delete_ticket(request):
     ticket = Ticket.objects.get(pk=pk)
     ticket.delete()
     messages.success(request, 'Ticket deleted successfully')
     return redirect('All_ticket_list')
 
+# shows list of all approved tickets
+@login_required(login_url='login')
+@technician_or_dispatcher_required
 def Approved_ticket_list(request):
     tickets = Ticket.objects.filter(status='Approved')
     return render(request, 'lists/All_ticket_list.html', {'tickets': tickets})
 
+# shows authenticated user's list of tickets
+@login_required(login_url='login')
 def My_ticket_list(request):
     user = request.user
     if user.role == 'technician':
@@ -137,7 +161,7 @@ def My_ticket_list(request):
 
 
 
-# Managing Companies
+# managing company registration
 def Company_registration(request):
     if request.method == "POST":
         form = UserSignUpForm(request.POST)
@@ -154,16 +178,21 @@ def Company_registration(request):
         form = UserSignUpForm()
     return render(request, 'forms/registrations/Company_registration.html', {'form': form})
 
+# shows list of all registered companies
+@login_required(login_url='login')
+@technician_or_dispatcher_required
 def All_company_list(request):
     companies = SystemUser.objects.filter(role='company')
     return render(request, 'lists/All_company_list.html', {'companies': companies})
 
+# shows details of a particular company
+@login_required(login_url='login')
 def Company_detail(request, pk):
     company = SystemUser.objects.get(pk=pk)
     return render(request, 'details/Company_detail.html', {'company': company})
 
 
-# Managing Technicians
+# managing technician registration
 def Technician_registration(request):
     if request.method == "POST":
         form = UserSignUpForm(request.POST)
@@ -177,17 +206,23 @@ def Technician_registration(request):
         form = UserSignUpForm()
     return render(request, 'forms/registrations/Technician_registration.html', {'form': form})
 
+# shows list of all registered technicians
+@login_required(login_url='login')
+@technician_or_dispatcher_required
 def All_technician_list(request):
     technicians = SystemUser.objects.filter(role='technician')
     return render(request, 'lists/All_technician_list.html', {'technicians': technicians})
 
+# shows details of a particular technician
+@login_required(login_url='login')
+@technician_or_dispatcher_required
 def Technician_detail(request, pk):
     technician = SystemUser.objects.get(pk=pk)
     return render(request, 'details/Technician_detail.html', {'technician': technician})
 
 
 
-# Managing Dispatchers
+# managing dispatcher registration
 def Dispatcher_registration(request):
     if request.method == "POST":
         form = UserSignUpForm(request.POST)
@@ -200,17 +235,24 @@ def Dispatcher_registration(request):
         form = UserSignUpForm()
     return render(request, 'forms/registrations/Dispatcher_registration.html', {'form': form})
 
+# shows list of all registered dispatchers
+@login_required(login_url='login')
+@technician_or_dispatcher_required
 def All_dispatcher_list(request):
     dispatchers = SystemUser.objects.filter(role='dispatcher')
     return render(request, 'lists/All_dispatcher_list.html', {'dispatchers': dispatchers})
 
+# shows details of a particular dispatcher
+@login_required(login_url='login')
+@technician_or_dispatcher_required
 def Dispatcher_detail(request, pk):
     dispatcher = SystemUser.objects.get(pk=pk)
     return render(request, 'details/Dispatcher_detail.html', {'dispatcher': dispatcher})
 
 
 
-# Managing user profile
+# managing user profile updates
+@login_required(login_url='login')
 def Update_user_profile(request):
     if request.method == "POST":
         form = SystemUserUpdateForm(request.POST, instance=request.user)
@@ -227,26 +269,35 @@ def Update_user_profile(request):
     return render(request, 'forms/updates/User_profile_update.html', {'form': form})
 
 
-# Managing user feedback form
+# managing feedback registration
 def Feedback_registration(request):
     if request.method == "POST":
         form = FeedbackForm(request.POST)
         if form.is_valid():
             form.save()
             messages.success(request, 'Your feedback has been submitted, Thank you for your feedback')
-            return redirect('Feedback_list')
+            return redirect('home')
     else:
         form = FeedbackForm()
     return render(request, 'home.html', {'form': form})
 
+# shows list of all registered feedbacks
+@login_required(login_url='login')
+@dispatcher_required
 def Feedback_list(request):
     feedbacks = Feedback.objects.all()
     return render(request, 'lists/feedback.html', {'feedbacks': feedbacks})
 
+# shows details of a particular feedback
+@login_required(login_url='login')
+@dispatcher_required
 def Feedback_detail(request, pk):
     feedback = Feedback.objects.get(pk=pk)
     return render(request, 'details/Feedback_detail.html', {'feedback': feedback})
 
+# posts a particular feedback on the home page
+@login_required(login_url='login')
+@dispatcher_required
 def Post_feedback(request, pk):
     feedback = Feedback.objects.get(pk=pk)
     feedback.status = 'Posted'
@@ -254,16 +305,21 @@ def Post_feedback(request, pk):
     messages.success(request, 'Feedback posted on home page')
     return redirect('home')
 
-
+# deletes a particular feedback
+@login_required(login_url='login')
+@dispatcher_required
 def Delete_feedback(request, pk):
     feedback = Feedback.objects.get(pk=pk)
     feedback.delete()
     messages.success(request, 'Feedback deleted successfully')
     return redirect('Feedback_list')
 
+# removes a particular feedback from the home page
+@login_required(login_url='login')
+@dispatcher_required
 def Remove_feedback(request, pk):
     feedback = Feedback.objects.get(pk=pk)
-    feedback.status = 'Removed'
+    feedback.status = 'Not Posted'
     feedback.save()
     messages.success(request, 'Feedback removed from home page')
     return redirect('home')

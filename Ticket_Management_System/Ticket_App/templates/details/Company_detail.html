@@ -15,11 +15,13 @@
           <h6 class="card-subtitle mb-2 text-body-secondary">
             <strong>Email: </strong>{{company.email}}
           </h6>
-          
+          <a class="btn btn-primary" href="{% url 'home' %}" role="button">Home</a>
+          {% if user.role == 'company' %}
           <a href="{% url 'Update_profile' %}" class="card-link">
             <img src="/static/icons/edit.svg" alt="Logo">
           </a>
-          <a href="{% url 'My_ticket_list'%}" class="card-link">Tickets</a>
+          <a class="btn btn-primary" href="{% url 'My_ticket_list'%}" class="card-link">Tickets</a>
+          {% endif %}
         </div>
       </div>
     </center>

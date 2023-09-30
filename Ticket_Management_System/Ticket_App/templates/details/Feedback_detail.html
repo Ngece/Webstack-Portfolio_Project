@@ -21,7 +21,8 @@
           <h6 class="card-subtitle mb-2 text-body-secondary">
             <strong>Status: </strong>{{feedback.status}}
           </h6><hr/>
-          
+          <a class="btn btn-primary" href="{% url 'home' %}" role="button">Home</a>
+          {% if user.role == 'dispatcher' %}
           <a href="{% url 'Delete_feedback' pk=feedback.pk %}" class="card-link">
             <img src="/static/icons/trash3.svg" alt="Logo">
           </a>
@@ -31,8 +32,9 @@
           <a href="{% url 'Remove_feedback' pk=feedback.pk %}" class="card-link">
             <img src="/static/icons/file-earmark-x.svg" alt="Logo">
           </a>
+          {% endif %}
         </div>
-      </div>
+      </div> 
     </center>
       <br/><hr/><br/>
 

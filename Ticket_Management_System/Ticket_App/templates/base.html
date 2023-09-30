@@ -30,50 +30,73 @@
                 
                 {% if user.is_authenticated %}
                 <a class="btn btn-primary" href="{% url 'logout'%}" role="button">Logout</a>
+            
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'My_ticket_list'%}">| My Tickets |</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'Update_profile'%}">| Update Profile|</a>
+                    <a class="btn btn-primary" href="{% url 'Update_profile'%}">Update Profile </a>
                 </li>
                 {% if user.role == 'company' %}
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'Ticket_registration'%}">| Create Ticket |</a>
+                    <a class="btn btn-primary" href="{% url 'Ticket_registration'%}">Create Ticket </a>
                 </li>
                 {% endif %}
                 {% if user.role == 'technician' %}
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'Approved_ticket_list'%}">| Approved tickets |</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'All_technician_list'%}">| Technicians and Engineers |</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'All_company_list'%}">| Companies |</a>
-                </li>
+                <div class="dropdown">
+                    <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      Tickets
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                      <a class="dropdown-item" href="{% url 'My_ticket_list'%}">My Tickets</a>
+                      <a class="dropdown-item" href="{% url 'Approved_ticket_list'%}">Approved Tickets</a>
+                      <a class="dropdown-item" href="{% url 'All_ticket_list'%}">All Tickets</a>
+                    </div>
+                </div>
+                <div class="dropdown">
+                    <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      Associates
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                      <a class="dropdown-item" href="{% url 'All_company_list'%}">Companies</a>
+                      <a class="dropdown-item" href="{% url 'All_technician_list'%}">Technicians</a>
+                      <a class="dropdown-item" href="{% url 'All_dispatcher_list'%}">Dispatchers</a>
+                    </div>
+                </div>
                 {% endif %}
-                {% if user.role == 'despatcher' %}
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'All_technician_list'%}">| Technicians and Engineers |</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'All_company_list'%}">| Companies |</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'Approved_ticket_list'%}">| Approved tickets |</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'All_dispatcher_list'%}">| Dispatchers |</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'Feedback_list'%}">| Feedback |</a>
-                </li>
+                {% if user.role == 'dispatcher' %}
+                <div class="dropdown">
+                    <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      Tickets
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                      <a class="dropdown-item" href="{% url 'My_ticket_list'%}">My Tickets</a>
+                      <a class="dropdown-item" href="{% url 'Approved_ticket_list'%}">Approved Tickets</a>
+                      <a class="dropdown-item" href="{% url 'All_ticket_list'%}">All Tickets</a>
+                    </div>
+                </div>
+                <div class="dropdown">
+                    <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      Associates
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                      <a class="dropdown-item" href="{% url 'All_company_list'%}">Companies</a>
+                      <a class="dropdown-item" href="{% url 'All_technician_list'%}">Technicians</a>
+                      <a class="dropdown-item" href="{% url 'All_dispatcher_list'%}">Dispatchers</a>
+                    </div>
+                </div>
+                <div class="dropdown">
+                    <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      Feedback
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                      <a class="dropdown-item" href="{% url 'Feedback_list'%}">All Feedback</a>
+                      <a class="dropdown-item" href="{% url 'All_technician_list'%}">Posted</a>
+                    </div>
+                </div>
                 {% endif %}
                 {% else %}
                 <a class="btn btn-primary" href="{% url 'login'%}" role="button">Login</a>  
                 <a class="btn btn-primary" href="{% url 'about'%}" role="button">About</a>
                 <div class="dropdown">
-                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                       Register
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">

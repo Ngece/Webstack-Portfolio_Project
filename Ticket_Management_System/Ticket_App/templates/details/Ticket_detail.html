@@ -24,18 +24,22 @@
           <p class="card-text">{{ticket.dispatcher}}</p><hr/>
           <strong>TECHNICIAN's COMMENT:</strong>
           <p class="card-text">{{ticket.tech_comment}}</p><hr/>
+          <a class="btn btn-primary" href="{% url 'home' %}" role="button">Home</a>
           {% if user.role == 'dispatcher' %}
-          <a href="#" class="card-link">Approve</a>
-          <a href="#" class="card-link">Reject</a>
-          <a href="#" class="card-link">Delete</a>
+          <a class="btn btn-success" href="{% url 'Approve_ticket' pk=ticket.pk%}" role="button">Approve</a>
+          <a class="btn btn-dark" href="{% url 'Reject_ticket' pk=ticket.pk%}" role="button">Reject</a>
+          <a class="btn btn-info" href="{% url 'Close_ticket' pk=ticket.pk%}" role="button">Close</a>
+          <a class="btn btn-danger" href="{% url 'Delete_ticket' pk=ticket.pk%}" role="button">Delete</a>
           {% elif user.role == 'technician' %}
-          <a href="#" class="card-link">Accept</a>
-          <a href="#" class="card-link">Reject</a>
-          <a href="#" class="card-link">Nothing</a>
+          <a class="btn btn-primary" href="{% url 'Accept_ticket' pk=ticket.pk%}" role="button">Accept</a>
+          <a class="btn btn-primary" href="{% url 'Monitor_ticket' pk=ticket.pk%}" role="button">Monitor</a>
+          <a class="btn btn-primary" href="{% url 'Close_ticket' pk=ticket.pk%}" role="button">Close</a>
+          {% elif user.role == 'company' %}
+          <a class="btn btn-primary" href="{% url 'Update_ticket' pk=ticket.pk%}" role="button">Update</a>
           {% endif %}
         </div>
-      </div>
+    </div>
     </center>
-      <br/><hr/><br/>
+    <br/><hr/>
 
 {% endblock %}

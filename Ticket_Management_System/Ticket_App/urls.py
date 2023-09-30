@@ -16,8 +16,9 @@ urlpatterns = [
     path('Approved_ticket_list/', views.Approved_ticket_list, name='Approved_ticket_list'),
     path('My_ticket_list/', views.My_ticket_list, name='My_ticket_list'),
     path('Approve_ticket/<int:pk>/', views.Approve_ticket, name='Approve_ticket'),
+    path('Reject_ticket/<int:pk>/', views.Accept_ticket, name='Reject_ticket'),
     path('Accept_ticket/<int:pk>/', views.Accept_ticket, name='Accept_ticket'),
-    path('Reject_ticket/<int:pk>/', views.Reject_ticket, name='Reject_ticket'),
+    path('Monitor_ticket/<int:pk>/', views.Monitor_ticket, name='Monitor_ticket'),
     path('Close_ticket/<int:pk>/', views.Close_ticket, name='Close_ticket'),
     path('Delete_ticket/<int:pk>/', views.Delete_ticket, name='Delete_ticket'),
 
