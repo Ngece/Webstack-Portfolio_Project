@@ -1,0 +1,44 @@
+/* Apply styles scrolling images container */
+.scrolling-image {
+    overflow-x: scroll; 
+    white-space: nowrap;
+    width: 100%; 
+}
+/* Apply styles to the individual images */
+.scrolling-image img {
+    max-width: 200px; 
+    height: auto;
+}
+
+.navbar-logo {
+    max-width: 100px;
+    height: auto;
+}
+        
+/* Style for the footer */
+.footer {
+    background-color: #02083b;
+    padding: 20px 0;
+    text-align: center;    
+    bottom: 0;
+    width: 100%;
+    color: #fff;
+}
+
+/* Style for the container that holds content and pushes the footer to the bottom */
+.content-container {
+    min-height: calc(100vh - 85px);
+    position: relative;
+}
+
+/* custom background color for the navbar */
+.bg-custom {
+    background-color: #02083b;
+}
+
+/* text color of links in the navbar */
+.navbar-light .navbar-nav .nav-link ,
+.navbar-light .navbar-brand{
+    color: #fff; 
+}
+

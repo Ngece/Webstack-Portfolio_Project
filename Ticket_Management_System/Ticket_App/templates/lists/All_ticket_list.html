@@ -4,8 +4,8 @@
     <h1>Tickets</h1>
     <p> All tickets filed, please note some are waiting for approval !!!</p>
     <center>
-      <table class="table table-hover" >
-        <thead>
+      <table class="table table-hover table-bordered" >
+        <thead class="thead-dark">
             <tr>
               <th scope="col">ID</th>
               <th scope="col">Title</th>
@@ -16,6 +16,7 @@
               <th scope="col">Company</th>
               <th scope="col">Assigned Technician</th>
               <th scope="col">Dispatcher</th>
+              <th scope="col">Info</th>
             </tr>
         </thead>
         <tbody>
@@ -30,9 +31,11 @@
               <td>{{ticket.company}}</td>
               <td>{{ticket.technician}}</td>
               <td>{{ticket.dispatcher}}</td>
-              <td><i class="bi bi-trash"></i>
+              <td>
+                <a href="{% url 'Ticket_detail' pk=ticket.pk %}">
+                  <img src="/static/icons/info-square.svg" alt="Logo">
+                </a>
               </td>
-
             </tr>
         {% endfor %}    
         </tbody>

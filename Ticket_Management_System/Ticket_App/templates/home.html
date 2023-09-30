@@ -1,17 +1,23 @@
 {%extends 'base.html'%}
+{% load static%}
 
 {%block content%}
-    <h1>Home Page</h1>
-
-    <p class="lead">Rapid Ticket Management System !!</p>
-
-    <hr/>
+<div class="container mt-1">
+    <center>
+        <h1>Welcome</h1>
+        <p class="lead">Rapid Ticket Management System !!</p>
+    </center>
+    <br/><hr/>
     
     <!-- Scrolling Image Section -->
     <div class="scrolling-image">
-        <img src="static/images/london.svg" alt="Scrolling Image"/>
+        <img src="{% static 'images/london.svg' %}" alt="Scrolling Image"/>
+        <img src="{% static 'images/UX colors.svg' %}" alt="Scrolling Image"/>
+        <img src="{% static 'images/Dhaka.svg' %}" alt="Scrolling Image"/>
+        <img src="{% static 'images/Manchester.svg' %}" alt="Scrolling Image"/>
+        <img src="{% static 'images/barcelona.svg' %}" alt="Scrolling Image"/>
     </div>
-
+</div>
     <!-- User Comments Section -->
     <div class="container mt-4">
         <div class="row">

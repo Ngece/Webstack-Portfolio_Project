@@ -1,68 +1,35 @@
 <!DOCTYPE html>
+{% load static %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> {% block title%} Welcome base {%endblock%} </title>
+    <title> {% block title%} Ticket Management System {%endblock%} </title>
 
-    <!-- Add Bootstrap CSS (You can replace this with your own Bootstrap CSS link) -->
+    <!-- Add Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 
     <!-- Add your custom CSS if needed -->
-    <link rel="stylesheet" href="your-custom-styles.css">
+    <link rel="stylesheet" href="{% static 'css/styles.css'%}">
     
-    <style>
-        .navbar-image {
-            width: 30px; /* Adjust the width as needed */
-            height: auto; /* Automatically adjust the height while maintaining aspect ratio */
-        }
-        
-        /* Style for the footer */
-        .footer {
-            background-color: #02083b;
-            padding: 20px 0;
-            text-align: center;
-            
-            bottom: 0;
-            width: 100%;
-            color: #fff;
-        }
-
-        /* Style for the container that holds content and pushes the footer to the bottom */
-        .content-container {
-            min-height: calc(100vh - 85px);
-            position: relative;
-        }
-        /* custom background color for the navbar */
-        .bg-custom {
-            background-color: #02083b;
-        }
-        /* text color of links in the navbar */
-        .navbar-light .navbar-nav .nav-link ,
-        .navbar-light .navbar-brand{
-            color: #fff; 
-        }
-
-    </style>
 </head>
 <body>
 
 <!-- Navbar -->
 <nav class="navbar navbar-expand-lg navbar-light bg-custom">
     <div class="container">
-        <a class="navbar-brand" ><img src="{% static 'images/logo.png' %}" alt="Logo"></a>
-        <li class="nav-item">
-            <a class="nav-link" href="{% url 'home'%}">| Home |</a>
-        </li>
+        <a class="navbar-brand" >
+            <img class="navbar-logo" src="{% static 'images/logo.png' %}" alt="Logo">
+        </a>
+        <a class="btn btn-primary" href="{% url 'home'%}" role="button">Home</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
+            <span class="navbar-toggler-icon">voops</span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ml-auto">
+                
                 {% if user.is_authenticated %}
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'logout' %}">| Logout |</a>
-                </li>
+                <a class="btn btn-primary" href="{% url 'logout'%}" role="button">Logout</a>
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'My_ticket_list'%}">| My Tickets |</a>
                 </li>
@@ -103,15 +70,18 @@
                 </li>
                 {% endif %}
                 {% else %}
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'login'%}">| Login |</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'about'%}">| About |</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'Company_registration'%}">| Register with us |</a>
-                </li>
+                <a class="btn btn-primary" href="{% url 'login'%}" role="button">Login</a>  
+                <a class="btn btn-primary" href="{% url 'about'%}" role="button">About</a>
+                <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      Register
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                      <a class="dropdown-item" href="{% url 'Company_registration'%}">Company</a>
+                      <a class="dropdown-item" href="{% url 'Technician_registration'%}">Technician</a>
+                      <a class="dropdown-item" href="{% url 'Dispatcher_registration'%}">Dispatcher</a>
+                    </div>
+                </div>
                 {% endif %}
             </ul>
         </div>
@@ -127,7 +97,10 @@
 
 
 <!-- Content Container -->
-<div class="content-container">
+<div class="content-container" style="background-image: url('{% static "images/loneliness-desk.avif" %}');
+                                           background-repeat: no-repeat;
+                                           background-size: cover;
+                                           background-attachment: fixed;">
     {% block content %}{% endblock %}
 </div>
 <br/><br/>

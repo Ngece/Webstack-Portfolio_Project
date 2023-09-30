@@ -1,8 +1,8 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h1>Technicians</h1>
-    <p> All our technicians  !!!</p>
+    <h1>Dispatchers</h1>
+    <p> All our dispatchers  !!!</p>
     <center>
       <table class="table table-hover table-bordered" >
         <thead class="thead-dark">
@@ -14,13 +14,13 @@
             </tr>
         </thead>
         <tbody>
-          {% for technician in technicians %}
+          {% for dispatcher in dispatchers %}
             <tr>
-              <td>{{technician.name}}</td>
-              <td>{{technician.email}}</td>
-              <td>{{technician.phone}}</td>
+              <td>{{dispatcher.name}}</th>
+              <td>{{dispatcher.email}}</td>
+              <td>{{dispatcher.phone}}</td>
               <td>
-              <a href="{% url 'Technician_detail' pk=technician.pk %}">
+              <a href="{% url 'Dispatcher_detail' pk=dispatcher.pk %}">
                 <img src="/static/icons/info-square.svg" alt="Logo">
               </a>
               </td>

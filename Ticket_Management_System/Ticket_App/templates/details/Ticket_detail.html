@@ -4,29 +4,35 @@
     <h1>Ticket</h1>
     <p> Ticket information!</p>
     <center>
-      {% for ticket in tickets %}
-    <div class="card" style="width: 18rem;">
+    <div class="card" style="width: 32rem;">
         <div class="card-body">
-          <h5 class="card-title"> {{ticket.title}} </h5>
-          <h6 class="card-subtitle mb-2 text-body-secondary">{{ticket.status}}</h6>
-          <strong><p>DISCRIPTION:</p></strong>
-          <p class="card-text">{{ticket.description}}</p>
-          <strong><p>cREATED ON:</p></strong>
-          <p class="card-text">{{ticket.created_date}}</p>
-          <strong><p>lAST UPDATED:</p></strong>
-          <p class="card-text">{{ticket.updated_date}}</p>
-          <strong><p>COMPANY:</p></strong>
-          <p class="card-text">{{ticket.company}}</p>
-          <strong><p>ASSIGNED TECHNICIAN:</p></strong>
-          <p class="card-text">{{ticket.technician}}</p>
-          <strong><p>DISPATCHER:</p></strong>
-          <p class="card-text">{{ticket.dispatcher}}</p>
-          {% if user.role == 'Dispatcher' %}
-          <a href="#" class="card-link">Card link</a>
-          <a href="#" class="card-link">Another link</a>
+          <strong>TITLE:</strong>
+          <h5 class="card-title"> {{ticket.title}} </h5><hr/>
+          <strong>STATUS:</strong>
+          <h6 class="card-subtitle mb-2 text-body-secondary">{{ticket.status}}</h6><hr/>
+          <strong>DISCRIPTION:</strong>
+          <p class="card-text">{{ticket.description}}</p><hr/>
+          <strong>CREATED ON:</strong>
+          <p class="card-text">{{ticket.created_date}}</p><hr/>
+          <strong>LAST UPDATED:</strong>
+          <p class="card-text">{{ticket.updated_date}}</p><hr/>
+          <strong>COMPANY:</strong>
+          <p class="card-text">{{ticket.company}}</p><hr/>
+          <strong>ASSIGNED TECHNICIAN:</strong>
+          <p class="card-text">{{ticket.technician}}</p><hr/>
+          <strong>DISPATCHER:</strong>
+          <p class="card-text">{{ticket.dispatcher}}</p><hr/>
+          {% if user.role == 'dispatcher' %}
+          <a href="#" class="card-link">Approve</a>
+          <a href="#" class="card-link">Reject</a>
+          <a href="#" class="card-link">Delete</a>
+          {% elif user.role == 'technician' %}
+          <a href="#" class="card-link">Accept</a>
+          <a href="#" class="card-link">Reject</a>
+          <a href="#" class="card-link">Nothing</a>
+          {% endif %}
         </div>
       </div>
-      {% endfor %}
     </center>
       <br/><hr/><br/>
 

@@ -20,10 +20,11 @@ class SystemUser(AbstractUser):
 class Ticket(models.Model):
     ticket_choices = (
         ('pending', 'Pending'),
+        ('approved', 'Approved'),
         ('accepted', 'Accepted'),
         ('monitored', 'Monitored'),
         ('rejected', 'Rejected'),
-        ('closed', 'Closed')
+        ('closed', 'Closed'),
     )
     title = models.CharField(max_length=100)
     status = models.CharField(max_length=100, choices=ticket_choices, default='pending')
@@ -33,6 +34,7 @@ class Ticket(models.Model):
     company = models.ForeignKey(SystemUser, on_delete=models.CASCADE, null=True, blank=True, related_name='company_tickets')
     technician = models.ForeignKey(SystemUser, on_delete=models.CASCADE, null=True, blank=True, related_name='technician_tickets')
     dispatcher = models.ForeignKey(SystemUser, on_delete=models.CASCADE, null=True, blank=True, related_name='dispatcher_tickets')
+    tech_comment = models.TextField(max_length=1000, null=True)
 
     def __str__(self):
         return self.title +  ' ' + self.status

@@ -48,7 +48,7 @@ def logout_user(request):
 
 
 # Managing Tickets
-@user_passes_test(is_company)
+#@user_passes_test(is_company)
 def Ticket_registration(request):
     if request.method == "POST":
         form = TicketForm(request.POST)
@@ -69,7 +69,7 @@ def All_ticket_list(request):
     tickets = Ticket.objects.all()
     return render(request, 'lists/All_ticket_list.html', {'tickets': tickets})
 
-@
+
 def Ticket_detail(request, pk):
     ticket = Ticket.objects.get(pk=pk)
     return render(request, 'details/Ticket_detail.html', {'ticket': ticket})
@@ -195,7 +195,7 @@ def Dispatcher_registration(request):
             form = form.save(commit=False)
             form.role = 'dispatcher'
             form.save()
-            return redirect('forms/login/login.html')
+            return redirect('login')
     else:
         form = UserSignUpForm()
     return render(request, 'forms/registrations/Dispatcher_registration.html', {'form': form})
@@ -266,4 +266,4 @@ def Remove_feedback(request, pk):
     feedback.status = 'Removed'
     feedback.save()
     messages.success(request, 'Feedback removed from home page')
-    return redirect('')
+    return redirect('home')
