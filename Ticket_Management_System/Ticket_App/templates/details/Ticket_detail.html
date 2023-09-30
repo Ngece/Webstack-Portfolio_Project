@@ -22,6 +22,8 @@
           <p class="card-text">{{ticket.technician}}</p><hr/>
           <strong>DISPATCHER:</strong>
           <p class="card-text">{{ticket.dispatcher}}</p><hr/>
+          <strong>TECHNICIAN's COMMENT:</strong>
+          <p class="card-text">{{ticket.tech_comment}}</p><hr/>
           {% if user.role == 'dispatcher' %}
           <a href="#" class="card-link">Approve</a>
           <a href="#" class="card-link">Reject</a>
