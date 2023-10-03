@@ -57,3 +57,6 @@ class Feedback(models.Model):
     comment = models.TextField(max_length=1000)
     rating = models.IntegerField(choices=feedback_rating, default=1)
     status = models.CharField(max_length=100, choices=feedback_status, default='pending')
+
+    def __str__(self):
+        return self.name +  ' ' + self.comment

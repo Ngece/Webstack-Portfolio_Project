@@ -250,7 +250,6 @@ def Dispatcher_detail(request, pk):
     return render(request, 'details/Dispatcher_detail.html', {'dispatcher': dispatcher})
 
 
-
 # managing user profile updates
 @login_required(login_url='login')
 def Update_user_profile(request):

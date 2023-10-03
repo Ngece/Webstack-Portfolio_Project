@@ -29,19 +29,19 @@
             <ul class="navbar-nav ml-auto">
                 
                 {% if user.is_authenticated %}
-                <a class="btn btn-primary" href="{% url 'logout'%}" role="button">Logout</a>
+                <a class="btn btn-primary mr-2" href="{% url 'logout'%}" role="button">Logout</a>
             
                 <li class="nav-item">
-                    <a class="btn btn-primary" href="{% url 'Update_profile'%}">Update Profile </a>
+                    <a class="btn btn-primary mr-2" href="{% url 'Update_profile'%}">Update Profile </a>
                 </li>
                 {% if user.role == 'company' %}
                 <li class="nav-item">
-                    <a class="btn btn-primary" href="{% url 'Ticket_registration'%}">Create Ticket </a>
+                    <a class="btn btn-primary mr-2" href="{% url 'Ticket_registration'%}">Create Ticket </a>
                 </li>
                 {% endif %}
                 {% if user.role == 'technician' %}
                 <div class="dropdown">
-                    <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <button class="btn btn-info dropdown-toggle mr-2" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                       Tickets
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
@@ -51,7 +51,7 @@
                     </div>
                 </div>
                 <div class="dropdown">
-                    <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <button class="btn btn-info dropdown-toggle mr-2" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                       Associates
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
@@ -63,7 +63,7 @@
                 {% endif %}
                 {% if user.role == 'dispatcher' %}
                 <div class="dropdown">
-                    <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <button class="btn btn-info dropdown-toggle mr-2" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                       Tickets
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
@@ -73,7 +73,7 @@
                     </div>
                 </div>
                 <div class="dropdown">
-                    <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <button class="btn btn-info dropdown-toggle mr-2" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                       Associates
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
@@ -83,7 +83,7 @@
                     </div>
                 </div>
                 <div class="dropdown">
-                    <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <button class="btn btn-info dropdown-toggle mr-2" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                       Feedback
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
@@ -93,10 +93,10 @@
                 </div>
                 {% endif %}
                 {% else %}
-                <a class="btn btn-primary" href="{% url 'login'%}" role="button">Login</a>  
-                <a class="btn btn-primary" href="{% url 'about'%}" role="button">About</a>
+                <a class="btn btn-primary mr-2" href="{% url 'login'%}" role="button">Login</a>  
+                <a class="btn btn-primary mr-2" href="{% url 'about'%}" role="button">About</a>
                 <div class="dropdown">
-                    <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <button class="btn btn-info dropdown-toggle mr-2" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                       Register
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">

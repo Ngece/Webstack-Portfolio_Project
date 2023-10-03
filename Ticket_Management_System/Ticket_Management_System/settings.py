@@ -40,7 +40,7 @@ INSTALLED_APPS = [
     'Ticket_App',
 ]
 
-
+AUTH_USER_MODEL = 'Ticket_App.SystemUser'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -72,7 +72,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'Ticket_Management_System.wsgi.application'
 
-CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
@@ -121,8 +120,6 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
-# Define the directories where static files are located.
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 
 # Use the default static files storage in development.
 STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
@@ -134,4 +131,4 @@ STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-AUTH_USER_MODEL = 'Ticket_App.SystemUser'
+
