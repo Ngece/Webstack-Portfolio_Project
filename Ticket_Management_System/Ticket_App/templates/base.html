@@ -35,9 +35,15 @@
                     <a class="btn btn-primary mr-2" href="{% url 'Update_profile'%}">Update Profile </a>
                 </li>
                 {% if user.role == 'company' %}
-                <li class="nav-item">
-                    <a class="btn btn-primary mr-2" href="{% url 'Ticket_registration'%}">Create Ticket </a>
-                </li>
+                <div class="dropdown">
+                  <button class="btn btn-info dropdown-toggle mr-2" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Tickets
+                  </button>
+                  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <a class="dropdown-item" href="{% url 'My_ticket_list'%}">My Tickets</a>
+                    <a class="dropdown-item" href="{% url 'Ticket_registration'%}">Create Ticket </a>
+                  </div>
+              </div>
                 {% endif %}
                 {% if user.role == 'technician' %}
                 <div class="dropdown">

@@ -101,7 +101,9 @@ def Accept_ticket(request, pk):
     ticket = Ticket.objects.get(pk=pk)
     ticket.status = 'Accepted'
     ticket.technician = request.user
+    messages.success(request, 'Ticket has been accepted')
     ticket.save()
+    return redirect('My_ticket_list')
 
 # monitors a particular ticket by a technician
 @login_required(login_url='login')
@@ -229,8 +231,11 @@ def Dispatcher_registration(request):
         if form.is_valid():
             form = form.save(commit=False)
             form.role = 'dispatcher'
+            messages.success(request, 'Your dispatcher profile has been created, you can now login')
             form.save()
             return redirect('login')
+        else:
+            messages.error(request, 'There was an error submitting your form. Please try again')
     else:
         form = UserSignUpForm()
     return render(request, 'forms/registrations/Dispatcher_registration.html', {'form': form})
@@ -274,8 +279,11 @@ def Feedback_registration(request):
         form = FeedbackForm(request.POST)
         if form.is_valid():
             form.save()
-            messages.success(request, 'Your feedback has been submitted, Thank you for your feedback')
+            messages.success(request, 'Your feedback has been submitted, Thank you for your time')
             return redirect('home')
+        else:
+            print(form.errors)
+            messages.error(request, 'There was an error submitting your form. Please try again')
     else:
         form = FeedbackForm()
     return render(request, 'home.html', {'form': form})

@@ -48,7 +48,6 @@ class Feedback(models.Model):
         (5, '5')
     )
     feedback_status = (
-        ('pending', 'Pending'),
         ('not_posted', 'Not Posted'),
         ('posted', 'Posted'),
     )
@@ -56,7 +55,7 @@ class Feedback(models.Model):
     name = models.CharField(max_length=100)
     comment = models.TextField(max_length=1000)
     rating = models.IntegerField(choices=feedback_rating, default=1)
-    status = models.CharField(max_length=100, choices=feedback_status, default='pending')
+    status = models.CharField(max_length=100, choices=feedback_status, default='not_posted')
 
     def __str__(self):
         return self.name +  ' ' + self.comment
